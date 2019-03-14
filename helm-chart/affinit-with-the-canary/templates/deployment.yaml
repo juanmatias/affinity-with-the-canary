@@ -1,0 +1,57 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ include "affinit-with-the-canary.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" . }}
+    helm.sh/chart: {{ include "affinit-with-the-canary.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "affinit-with-the-canary.fullname" . }}
+        app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ["nginx"]
+        args: ["-c","/etc/nginx/customconfig/nginx.conf", "-g", "daemon off;"]
+        env:
+          {{- toYaml .Values.env | nindent 12 }}
+        ports:
+        - name: http
+          containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        volumeMounts:
+        - name: {{ include "affinit-with-the-canary.fullname" . }}-configs
+          mountPath: /etc/nginx/conf.d
+        - name: {{ include "affinit-with-the-canary.fullname" . }}-mainconfig
+          mountPath: /etc/nginx/customconfig
+      # Load the configuration files for nginx
+      volumes:
+        - name: {{ include "affinit-with-the-canary.fullname" . }}-configs
+          configMap:
+            name: {{ include "affinit-with-the-canary.fullname" . }}-config
+        - name: {{ include "affinit-with-the-canary.fullname" . }}-mainconfig
+          configMap:
+            name: {{ include "affinit-with-the-canary.fullname" . }}-mainconfig
