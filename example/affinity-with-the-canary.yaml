@@ -73,7 +73,7 @@ data:
              end
 
              ngx.var.upstream_srv = upstream_srv
-             ngx.header['Set-Cookie'] = "Can=" .. environ .. ";Path=/;Max-Age=" .. ngx.header.cookie_max_age
+             ngx.header['Set-Cookie'] = "Can=" .. environ .. ";Path=/;Max-Age=" .. ngx.var.cookie_max_age
            }
 
            # July! Do the thing!

@@ -1,5 +1,5 @@
 FROM alpine:latest
-MAINTAINER Juan Matias Kungfu de la Camara Beovidem "juan.delacamara@3xmgroup.com"
+MAINTAINER Juan Matias Kungfu de la Camara Beovide "juan.delacamara@3xmgroup.com"
 
 # In case no version is passed
 ARG version=1.0

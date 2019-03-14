@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: kubeapp
-        image: docker.io/juanmatias/canary-app:2.0
-        imagePullPolicy: IfNotPresent
+        image: canary-app:2.0
+        imagePullPolicy: Never
         readinessProbe:
           httpGet:
             path: /health
