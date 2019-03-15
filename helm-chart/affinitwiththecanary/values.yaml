@@ -10,18 +10,14 @@ image:
   pullPolicy: IfNotPresent
 
 env:
-- name: BASE_SVC_URL
-  value: ".canary.svc.cluster.local"
-- name: STABLE_SVC_NAME
-  value: kubeapp-production-service
-- name: CANARY_SVC_NAME
-  value: kubeapp-canary-service
-- name: CANARY_WEIGHT
-  value: "0.5"
-- name: COOKIE_MAX_AGE
-  value: "172800"
-- name: COOKIE_NAME
-  value: "cn"
+  # baseSvcUrl: ""
+  stableSvcName: kubeapp-production-service
+  canarySvcName: kubeapp-canary-service
+  stableSvcPort: "80"
+  canarySvcPort: "80"
+  canaryWeight: "0.5"
+  cookieMaxAge: "172800"
+  cookieName: "cn"
 
 nameOverride: ""
 fullnameOverride: ""

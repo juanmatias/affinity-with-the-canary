@@ -28,7 +28,22 @@ spec:
         command: ["nginx"]
         args: ["-c","/etc/nginx/customconfig/nginx.conf", "-g", "daemon off;"]
         env:
-          {{- toYaml .Values.env | nindent 12 }}
+        - name: BASE_SVC_URL
+          value: {{ include "affinitwiththecanary.baseurl" . | quote }}
+        - name: STABLE_SVC_NAME
+          value: {{ .Values.env.stableSvcName | quote }}
+        - name: CANARY_SVC_NAME
+          value: {{ .Values.env.canarySvcName | quote }}
+        - name: STABLE_SVC_PORT
+          value: {{ .Values.env.stableSvcPort | quote }}
+        - name: CANARY_SVC_PORT
+          value: {{ .Values.env.canarySvcPort | quote }}
+        - name: CANARY_WEIGHT
+          value: {{ .Values.env.canaryWeight | quote }}
+        - name: COOKIE_MAX_AGE
+          value: {{ .Values.env.cookieMaxAge | quote }}
+        - name: COOKIE_NAME
+          value: {{ .Values.env.cookieName | quote }}
         ports:
         - name: http
           containerPort: 80

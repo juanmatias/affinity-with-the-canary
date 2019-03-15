@@ -34,6 +34,10 @@ data:
             set_by_lua $canary_svc_name 'return os.getenv("CANARY_SVC_NAME")';
             set $stable_svc_name "";
             set_by_lua $stable_svc_name 'return os.getenv("STABLE_SVC_NAME")';
+            set $canary_svc_port "";
+            set_by_lua $canary_svc_port 'return os.getenv("CANARY_SVC_PORT")';
+            set $stable_svc_port "";
+            set_by_lua $stable_svc_port 'return os.getenv("STABLE_SVC_PORT")';
             set $cookie_max_age "";
             set_by_lua $cookie_max_age 'return os.getenv("COOKIE_MAX_AGE")';
             set $cookie_name "";
@@ -67,12 +71,12 @@ data:
 
                if(environ == "canary")
                then
-                 upstream_srv = ngx.var.canary_svc_name .. ngx.var.base_url
+                 upstream_srv = ngx.var.canary_svc_name .. ngx.var.base_url .. ":" .. ngx.var.canary_svc_port
                else
-                 upstream_srv = ngx.var.stable_svc_name .. ngx.var.base_url
+                 upstream_srv = ngx.var.stable_svc_name .. ngx.var.base_url .. ":" .. ngx.var.stable_svc_port
                end
              else
-               upstream_srv = ngx.var.stable_svc_name .. ngx.var.base_url
+               upstream_srv = ngx.var.stable_svc_name .. ngx.var.base_url .. ":" .. ngx.var.stable_svc_port
                environ = "stable"
              end
 
@@ -111,6 +115,8 @@ data:
     env BASE_SVC_URL;
     env CANARY_SVC_NAME;
     env STABLE_SVC_NAME;
+    env CANARY_SVC_PORT;
+    env STABLE_SVC_PORT;
     env CANARY_WEIGHT;
     env COOKIE_MAX_AGE;
     env COOKIE_NAME;
