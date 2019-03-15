@@ -3,10 +3,10 @@ entries:
   affinitwiththecanary:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-03-15T12:47:30.052153203-03:00
+    created: 2019-03-15T18:01:08.095183485-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
-    digest: edc6e21f5523f19f09bbf2ef8ee7b284dc8b5d0af0d6b16dd3ffce9a01b8cda6
+    digest: 021014edce674c980fef77331ff56c44fefa4b16857914c9f75e414526faf905
     home: https://github.com/juanmatias/affinity-with-the-canary
     keywords:
     - canary
@@ -19,4 +19,4 @@ entries:
     urls:
     - affinitwiththecanary-0.1.0.tgz
     version: 0.1.0
-generated: 2019-03-15T12:47:30.051726627-03:00
+generated: 2019-03-15T18:01:08.094789713-03:00
