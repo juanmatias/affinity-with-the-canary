@@ -4,6 +4,39 @@ kind: ConfigMap
 metadata:
   name: {{ include "affinit-with-the-canary.fullname" . }}-config
 data:
+  liveness.conf: |
+    server {
+
+      # Enable logging if needed
+      # error_log    /var/log/nginx/liveness.error.log debug;
+
+      # The IP that you forwarded in your router (nginx proxy)
+      listen  6969 default_server;
+
+      # Make site accessible from http://localhost/
+      server_name _;
+      location /liveness {
+        return 204 'livenessProbe gangnam style!';
+        # because default content-type is application/octet-stream,
+        # browser will offer to "save the file"...
+        # if you want to see reply in browser, uncomment next line
+        # add_header Content-Type text/plain;
+      }
+      location /readiness {
+        # Turn on nginx stats
+        stub_status on;
+
+        # I do not need logs for stats
+        access_log   off;
+
+        # return 204 'readinessProbe gangnam style!';
+        # because default content-type is application/octet-stream,
+        # browser will offer to "save the file"...
+        # if you want to see reply in browser, uncomment next line
+        # add_header Content-Type text/plain;
+      }
+
+    }
   default.conf: |
     # SERVICE DEFINITION
     # ##################

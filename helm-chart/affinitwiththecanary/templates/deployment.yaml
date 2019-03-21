@@ -49,14 +49,16 @@ spec:
         ports:
         - name: http
           containerPort: 80
+        - name: httptests
+          containerPort: 6969
         livenessProbe:
           httpGet:
-            path: /
-            port: http
+            path: /liveness
+            port: httptests
         readinessProbe:
           httpGet:
-            path: /
-            port: http
+            path: /readiness
+            port: httptests
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         volumeMounts:
