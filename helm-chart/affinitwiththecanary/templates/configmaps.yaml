@@ -42,6 +42,8 @@ data:
             set_by_lua $cookie_max_age 'return os.getenv("COOKIE_MAX_AGE")';
             set $cookie_name "";
             set_by_lua $cookie_name 'return os.getenv("COOKIE_NAME")';
+            set $cookie_enabled "";
+            set_by_lua $cookie_enabled 'return os.getenv("COOKIE_ENABLED")';
             set $upstream_srv "";
 
            # I think I saw a kitten, said the canary
@@ -56,7 +58,7 @@ data:
              local cookie_name = "cookie_" .. ngx.var.cookie_name
              if(weight > 0)
              then
-               if(ngx.var[cookie_name])
+               if(ngx.var.cookie_enabled == "true" and ngx.var[cookie_name])
                then
                  environ = ngx.var[cookie_name]
                else
@@ -81,7 +83,10 @@ data:
              end
 
              ngx.var.upstream_srv = upstream_srv
-             ngx.header['Set-Cookie'] = ngx.var.cookie_name .. "=" .. environ .. ";Path=/;Max-Age=" .. ngx.var.cookie_max_age
+             if(ngx.var.cookie_enabled == "true")
+             then
+              ngx.header['Set-Cookie'] = ngx.var.cookie_name .. "=" .. environ .. ";Path=/;Max-Age=" .. ngx.var.cookie_max_age
+             end
            }
 
            # July! Do the thing!
@@ -120,6 +125,7 @@ data:
     env CANARY_WEIGHT;
     env COOKIE_MAX_AGE;
     env COOKIE_NAME;
+    env COOKIE_ENABLED;
 
     events {
         worker_connections  1024;

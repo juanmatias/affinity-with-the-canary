@@ -44,6 +44,8 @@ spec:
           value: {{ .Values.env.cookieMaxAge | quote }}
         - name: COOKIE_NAME
           value: {{ .Values.env.cookieName | quote }}
+        - name: COOKIE_ENABLED
+          value: {{ .Values.env.cookieEnabled | quote }}
         ports:
         - name: http
           containerPort: 80

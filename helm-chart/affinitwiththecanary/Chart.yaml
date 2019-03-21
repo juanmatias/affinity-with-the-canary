@@ -1,8 +1,8 @@
 apiVersion: v1
-appVersion: "1.0"
+appVersion: "1.1"
 description: To build a simple way of deploy some kind of canary with a consistent user experience on top of Kubernetes.
 name: affinitwiththecanary
-version: 0.1.0
+version: 0.1.1
 keywords:
   - canary
   - deployment
