@@ -3,7 +3,25 @@ entries:
   affinitwiththecanary:
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-03-21T14:26:15.755023818-03:00
+    created: 2019-03-21T18:03:48.599654223-03:00
+    description: To build a simple way of deploy some kind of canary with a consistent
+      user experience on top of Kubernetes.
+    digest: 84f65646ded726a5c364309dd7cbf9e5af3f086099b2a3345eaf4ffd72824baf
+    home: https://github.com/juanmatias/affinity-with-the-canary
+    keywords:
+    - canary
+    - deployment
+    maintainers:
+    - email: juan.delacamara@3xmgroup.com
+      name: Juan Matias Kungfu de la Camara Beovide
+      url: http://juanmatiasdelacamara.wordpress.com
+    name: affinitwiththecanary
+    urls:
+    - affinitwiththecanary-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v1
+    appVersion: "1.1"
+    created: 2019-03-21T18:03:48.599269436-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: 5531cf50f12dae3215992df092a8b6aca43a95d33ba978e4db3c2b82c1117b31
@@ -21,7 +39,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-03-21T14:26:15.754693139-03:00
+    created: 2019-03-21T18:03:48.598943847-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: 021014edce674c980fef77331ff56c44fefa4b16857914c9f75e414526faf905
@@ -37,4 +55,4 @@ entries:
     urls:
     - affinitwiththecanary-0.1.0.tgz
     version: 0.1.0
-generated: 2019-03-21T14:26:15.754093436-03:00
+generated: 2019-03-21T18:03:48.598550195-03:00
