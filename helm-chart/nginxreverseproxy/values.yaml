@@ -54,3 +54,7 @@ resources:
   requests:
    cpu: 100m
    memory: 128Mi
+
+# True to apply a rolling update strategy, false for default
+rollingUpdate:
+  enabled: false

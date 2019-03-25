@@ -10,6 +10,13 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  {{if .Values.rollingUpdate.enabled}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2        # how many pods we can add at a time
+      maxUnavailable: 0  # maxUnavailable define how many pods can be unavailable during the rolling update
+  {{end}}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" . }}
