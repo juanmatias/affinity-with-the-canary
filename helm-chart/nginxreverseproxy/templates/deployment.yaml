@@ -1,16 +1,22 @@
+{{ $r := include "azs.array" . }}
+{{- range (split "," $r) }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ include "affinit-with-the-canary.fullname" . }}
+  {{if ne . "" }}
+  name: {{ include "affinit-with-the-canary.fullname" $ }}-{{ . }}
+  {{else}}
+  name: {{ include "affinit-with-the-canary.fullname" $ }}
+  {{end}}
   labels:
-    app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" . }}
-    helm.sh/chart: {{ include "affinit-with-the-canary.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" $ }}
+    helm.sh/chart: {{ include "affinit-with-the-canary.chart" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
-  {{if .Values.rollingUpdate.enabled}}
+  replicas: {{ $.Values.replicaCount }}
+  {{if $.Values.rollingUpdate.enabled}}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,40 +25,51 @@ spec:
   {{end}}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" $ }}
+      app.kubernetes.io/instance: {{ $.Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "affinit-with-the-canary.fullname" . }}
-        app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ include "affinit-with-the-canary.fullname" $ }}
+        app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" $ }}
+        app.kubernetes.io/instance: {{ $.Release.Name }}
     spec:
+      {{if ne . "" }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: failure-domain.beta.kubernetes.io/zone
+                operator: In
+                values:
+                -  {{ . }}
+      {{end}}
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      - name: {{ $.Chart.Name }}
+        image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+        imagePullPolicy: {{ $.Values.image.pullPolicy }}
         command: ["nginx"]
         args: ["-c","/etc/nginx/customconfig/nginx.conf", "-g", "daemon off;"]
         env:
         - name: BASE_SVC_URL
-          value: {{ include "affinitwiththecanary.baseurl" . | quote }}
+          value: {{ include "affinitwiththecanary.baseurl" $ | quote }}
         - name: STABLE_SVC_NAME
-          value: {{ .Values.env.stableSvcName | quote }}
+          value: {{ $.Values.env.stableSvcName | quote }}
         - name: CANARY_SVC_NAME
-          value: {{ .Values.env.canarySvcName | quote }}
+          value: {{ $.Values.env.canarySvcName | quote }}
         - name: STABLE_SVC_PORT
-          value: {{ .Values.env.stableSvcPort | quote }}
+          value: {{ $.Values.env.stableSvcPort | quote }}
         - name: CANARY_SVC_PORT
-          value: {{ .Values.env.canarySvcPort | quote }}
+          value: {{ $.Values.env.canarySvcPort | quote }}
         - name: CANARY_WEIGHT
-          value: {{ .Values.env.canaryWeight | quote }}
+          value: {{ $.Values.env.canaryWeight | quote }}
         - name: COOKIE_MAX_AGE
-          value: {{ .Values.env.cookieMaxAge | quote }}
+          value: {{ $.Values.env.cookieMaxAge | quote }}
         - name: COOKIE_NAME
-          value: {{ .Values.env.cookieName | quote }}
+          value: {{ $.Values.env.cookieName | quote }}
         - name: COOKIE_ENABLED
-          value: {{ .Values.env.cookieEnabled | quote }}
+          value: {{ $.Values.env.cookieEnabled | quote }}
         ports:
         - name: http
           containerPort: 80
@@ -67,17 +84,18 @@ spec:
             path: /readiness
             port: httptests
         resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml $.Values.resources | nindent 12 }}
         volumeMounts:
-        - name: {{ include "affinit-with-the-canary.fullname" . }}-configs
+        - name: {{ include "affinit-with-the-canary.fullname" $ }}-configs
           mountPath: /etc/nginx/conf.d
-        - name: {{ include "affinit-with-the-canary.fullname" . }}-mainconfig
+        - name: {{ include "affinit-with-the-canary.fullname" $ }}-mainconfig
           mountPath: /etc/nginx/customconfig
       # Load the configuration files for nginx
       volumes:
-        - name: {{ include "affinit-with-the-canary.fullname" . }}-configs
+        - name: {{ include "affinit-with-the-canary.fullname" $ }}-configs
           configMap:
-            name: {{ include "affinit-with-the-canary.fullname" . }}-config
-        - name: {{ include "affinit-with-the-canary.fullname" . }}-mainconfig
+            name: {{ include "affinit-with-the-canary.fullname" $ }}-config
+        - name: {{ include "affinit-with-the-canary.fullname" $ }}-mainconfig
           configMap:
-            name: {{ include "affinit-with-the-canary.fullname" . }}-mainconfig
+            name: {{ include "affinit-with-the-canary.fullname" $ }}-mainconfig
+{{- end }}

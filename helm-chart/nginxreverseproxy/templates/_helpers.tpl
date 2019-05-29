@@ -38,3 +38,14 @@ Create chart name and version as used by the chart label.
 {{- define "affinit-with-the-canary.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Return the array for range accordingly to if multi-az is enabled
+*/}}
+{{- define "azs.array" -}}
+{{- if .Values.azs.enabled -}}
+{{- join "," .Values.azs.values -}}
+{{- else -}}
+{{ "" }}
+{{- end -}}
+{{- end -}}
