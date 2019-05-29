@@ -48,4 +48,4 @@ In versions 0.1.4+ there is the feature to deploy multiaz, this means multi avai
 
 When you work with providers such AWS, you can allocate nodes on more than one AZ. This ensures that you have pods evenly deployed in each AZ.
 
-For more info see [here]( https://juanmatiasdelacamara.wordpress.com/2019/05/29/multi-az-deployments/(se abre en una nueva pestaña)).
+For more info see [here]( https://juanmatiasdelacamara.wordpress.com/2019/05/29/multi-az-deployments/).
