@@ -71,6 +71,8 @@ azs:
   values:
     - us-east-1a
     - us-east-1b
-    
+
 # Add annotations in case you need
-annotations: {}
+setAnnotations: false
+annotations:
+  ad.datadoghq.com/tags: '{"layer": "fakelayer"}'
