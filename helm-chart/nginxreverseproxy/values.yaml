@@ -52,7 +52,7 @@ resources:
    cpu: 10m
    memory: 15Mi
   requests:
-   cpu: 1m
+   cpu: 5m
    memory: 6Mi
 
 # True to apply a rolling update strategy, false for default
@@ -71,3 +71,6 @@ azs:
   values:
     - us-east-1a
     - us-east-1b
+    
+# Add annotations in case you need
+annotations: {}

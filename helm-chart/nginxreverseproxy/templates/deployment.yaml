@@ -33,6 +33,8 @@ spec:
         app: {{ include "affinit-with-the-canary.fullname" $ }}
         app.kubernetes.io/name: {{ include "affinit-with-the-canary.name" $ }}
         app.kubernetes.io/instance: {{ $.Release.Name }}
+    annotations:
+      {{- toYaml $.Values.annotations | nindent 10 }}
     spec:
       {{if ne . "" }}
       affinity:
