@@ -76,3 +76,9 @@ azs:
 setAnnotations: false
 annotations:
   ad.datadoghq.com/tags: '{"layer": "fakelayer"}'
+
+# Stub status
+# For get metrics in the endpoint /nginx_status
+# This is useful when you try to get metrics from an agent (i.e. datadog)
+stubStatus:
+  enabled: false

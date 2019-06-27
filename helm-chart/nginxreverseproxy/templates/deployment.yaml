@@ -79,6 +79,10 @@ spec:
           containerPort: 80
         - name: httptests
           containerPort: 6969
+        {{if $.Values.stubStatus.enabled}}
+        - name: stubstatus
+          containerPort: 81
+        {{end}}
         livenessProbe:
           httpGet:
             path: /liveness
