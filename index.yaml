@@ -3,7 +3,7 @@ entries:
   affinitwiththecanary:
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-06-27T17:03:09.149635237-03:00
+    created: 2019-06-28T14:57:30.180426255-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: 84f65646ded726a5c364309dd7cbf9e5af3f086099b2a3345eaf4ffd72824baf
@@ -21,7 +21,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-06-27T17:03:09.149270376-03:00
+    created: 2019-06-28T14:57:30.179800899-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: 5531cf50f12dae3215992df092a8b6aca43a95d33ba978e4db3c2b82c1117b31
@@ -39,7 +39,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-06-27T17:03:09.14892197-03:00
+    created: 2019-06-28T14:57:30.179174637-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: 021014edce674c980fef77331ff56c44fefa4b16857914c9f75e414526faf905
@@ -58,10 +58,10 @@ entries:
   nginxreverseproxy:
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-06-27T17:03:09.151636456-03:00
+    created: 2019-06-28T14:57:30.185176446-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
-    digest: 0e3763923ef65284e0257038eaa77fa80fdcbd4102ae0993aa51d676af26779f
+    digest: e91e5a0d7a316ac8f0794626868279f428cc206740df10b0e008f460909157ad
     home: https://github.com/juanmatias/affinity-with-the-canary
     keywords:
     - nginx
@@ -78,7 +78,7 @@ entries:
     version: 0.1.6
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-06-27T17:03:09.151209503-03:00
+    created: 2019-06-28T14:57:30.184648235-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: 1ca0998a7faffef408a6f2c54b0c86bda8dfaf4438d5cb5da037fbcbdecc1302
@@ -98,7 +98,7 @@ entries:
     version: 0.1.5
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-06-27T17:03:09.150799215-03:00
+    created: 2019-06-28T14:57:30.183641433-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: e20c4d9fc578970ead6082abe08f2a7f03e7b1585ba8cbbe39597938b35fd475
@@ -118,7 +118,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-06-27T17:03:09.150387639-03:00
+    created: 2019-06-28T14:57:30.182726541-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: 90ca413debd99c088ba33c262943cda9a69cf0fbac27e2ec70f686cb6963bcbc
@@ -138,7 +138,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.1"
-    created: 2019-06-27T17:03:09.149993081-03:00
+    created: 2019-06-28T14:57:30.181797903-03:00
     description: To build a simple way of deploy some kind of canary with a consistent
       user experience on top of Kubernetes.
     digest: f11bda29f92bd7379077d11b97e7ab41dcb079e58cf0d2545b4bf3a8663ec827
@@ -156,4 +156,4 @@ entries:
     urls:
     - nginxreverseproxy-0.1.2.tgz
     version: 0.1.2
-generated: 2019-06-27T17:03:09.148419065-03:00
+generated: 2019-06-28T14:57:30.176971508-03:00
