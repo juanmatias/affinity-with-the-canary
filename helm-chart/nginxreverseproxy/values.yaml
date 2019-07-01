@@ -74,8 +74,8 @@ azs:
 
 # Add annotations in case you need
 setAnnotations: false
-annotations:
-  ad.datadoghq.com/tags: '{"layer": "fakelayer"}'
+annotations: {}
+  
 
 # Stub status
 # For get metrics in the endpoint /nginx_status
