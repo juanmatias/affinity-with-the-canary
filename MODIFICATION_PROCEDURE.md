@@ -11,8 +11,11 @@ Steps to modify this code.
 If test are ok:
 
   6. create the new helm package
+
     a. helm package helm-chart/nginxreverseproxy
+
     b. helm repo index .
+
   7. commit
   8. merge on *master*
   9. tag master with the new version
