@@ -113,6 +113,9 @@ data:
     user  nginx;
     worker_processes  1;
 
+    # "Heavy" tracing modifications for opentracing
+    load_module /usr/local/openresty/nginx/modules/ngx_http_opentracing_module.so;
+
     error_log  /var/log/nginx/error.log warn;
     pid        /var/run/nginx.pid;
 
@@ -132,8 +135,14 @@ data:
 
 
     http {
-        include       /etc/nginx/mime.types;
+        include       /usr/local/openresty/nginx/conf/mime.types;
         default_type  application/octet-stream;
+
+        # "Heavy" tracing modifications for opentracing
+        opentracing on;
+        opentracing_tag http_user_agent $http_user_agent;
+        opentracing_trace_locations off;
+        # opentracing_load_tracer /usr/local/lib/libzipkin_opentracing_plugin.so /etc/dd-config.json;
 
         log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                           '$status $body_bytes_sent "$http_referer" '
@@ -164,15 +173,15 @@ spec:
         app: nginxcan
     spec:
       containers:
-      # - image:
-      - image: firesh/nginx-lua:alpine
-        imagePullPolicy: IfNotPresent
+      - image: docker.io/juanmatias/affinity-with-the-canary:heavytest
+      # - image: firesh/nginx-lua:alpine
+        imagePullPolicy: Always
         name: nginxcan
-        command: ["nginx"]
+        command: ["/usr/local/openresty/bin/openresty"]
         args: ["-c","/etc/nginx/customconfig/nginx.conf", "-g", "daemon off;"]
         env:
         - name: BASE_SVC_URL
-          value: ".canary.svc.cluster.local"
+          value: ".canarytest.svc.cluster.local"
         - name: STABLE_SVC_NAME
           value: kubeapp-production-service
         - name: CANARY_SVC_NAME
@@ -188,7 +197,7 @@ spec:
         - name: COOKIE_NAME
           value: "cn"
         - name: COOKIE_ENABLED
-          value: "true"
+          value: "false"
         ports:
         - containerPort: 80
         volumeMounts:

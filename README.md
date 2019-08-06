@@ -4,7 +4,7 @@ This idea is based on:
 
 	https://medium.com/google-cloud/kubernetes-canary-deployments-for-mere-mortals-13728ce032fe
 	https://github.com/Telefonica/nginx-canary
-	
+
 
 ![I think I saw a kitten](images/tweety.jpg)
 
@@ -16,7 +16,7 @@ To build a simple way of deploy some kind of canary with a consistent user exper
 
 	1. Allow a simple way of canary deployment with weights
 	2. Once the user accessed canary or stable keep her/him stuck to this deploy (consistent user experience)
-	
+
 ## Motivation
 
 Despite the fact that tools already exist to perform canary each one has a drawback.
@@ -36,7 +36,7 @@ Basically this is it:
 ![](images/canary_sticky_session_001.jpg)
 
 
-We have two versions for our app: stable and canary. 
+We have two versions for our app: stable and canary.
 
 Despite the qty of pods each one has its own service on front of it.
 
@@ -85,4 +85,21 @@ All requests, despite the cookie can be set to canary, will be redirected to sta
 
 To see an explanation of the example on this solution please go [here](https://juanmatiasdelacamara.wordpress.com/2019/03/14/simple-canary-with-affinity-on-k8s/)
 
+# About the docker image
 
+I'm using as base the [opentracing-contrib/nginx-opentracing](https://github.com/opentracing-contrib/nginx-opentracing) image based on **openresty**. (Use *Dockerfile-openresty* from this repo)
+
+You can just build it in your local repo.
+
+Then I'm just using this image as base and adding two lines to add a nginx standard dir and to add *nginx* user.
+
+```
+RUN mkdir -p /var/log/nginx
+RUN adduser --system --no-create-home --shell /bin/false --group --disabled-login nginx
+```
+
+*Docker file under docker directory.*
+
+And uploading the image as [docker.io/juanmatias/affinity-with-the-canary](https://hub.docker.com/r/juanmatias/affinity-with-the-canary). (so you can use it instead of building your own image)
+
+And this is the image I'm using here.
