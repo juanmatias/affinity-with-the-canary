@@ -16,4 +16,11 @@ If test are ok:
   7. commit
   8. merge on *master*
   9. tag master with the new version
+  10. push code
+
+To push tag: 
+
+```
+git push origin <tag_name>
+```
 
